@@ -17,7 +17,11 @@ const UserSchema = new mongoose.Schema({
     balance: {
         type: Number,
         default: 100
-    }
+    },
+    transaction: [{
+        value: {type: Number, required: true},
+        date: {type: Date, default: Date.now}
+    }]
 });
 
 module.exports = User = mongoose.model('user', UserSchema);
