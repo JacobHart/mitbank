@@ -31,6 +31,13 @@ const Login = () => {
             const res = await axios.post('/api/auth', body, config);
             dispatch(loginSuccess(res.data));
             dispatch(loadUser())
+            const id = nanoid();
+            dispatch(setAlert({
+                id: id,
+                msg: "Login Success",
+                alertType: 'success'
+            }))
+            setTimeout(() => dispatch( removeAlert(id)), 5000);
 
         } catch (err) {
         
@@ -56,15 +63,14 @@ const Login = () => {
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     if(isAuthenticated){
-        return <Navigate to="/" />
+        return <Navigate to="/deposit" />
     }
     
     return (
-        <section className="container">
             <div>
             
                 <h1 className="large text-primary">Sign In</h1>
-                <p className="lead"><i className="fas fa-user"></i> Sign Into Your Account</p>
+                <p className="lead">Sign Into Your Account</p>
                 <form className="form" onSubmit={ e => onSubmit(e)}>
                     
                  
@@ -95,7 +101,6 @@ const Login = () => {
                 </p>
             
         </div>
-        </section>
     )
 }
 

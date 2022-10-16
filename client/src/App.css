@@ -70,6 +70,16 @@ img {
   color: var(--primary-color);
 }
 
+.text-success {
+  color: var(--success-color);
+}
+
+.text-danger {
+  color: var(--danger-color);
+}
+
+
+
 .text-dark {
   color: var(--dark-color);
 }
@@ -332,8 +342,7 @@ button {
 
 /* Landing Page */
 .landing {
-  position: relative;
-  background: url('./img/showcase.jpg') no-repeat center center/cover;
+  /* position: relative; */ 
   height: 100vh;
 }
 

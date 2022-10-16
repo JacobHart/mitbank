@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 const authLinks = (
   <>
   <p className="lead">
-    Ready to make a deposit!
+    Ready to make a deposit
   </p>
   <div className="buttons">
       <Link to='/deposit' className='btn btn-primary'>Deposit</Link>
@@ -19,7 +19,7 @@ const authLinks = (
 const guestLinks= (
   <>
   <p className="lead">
-    Sign up and immediately start to withdraw and deposit money to your account. 
+    Sign up and immediately start to withdraw and deposit money 
   </p>
   <div className="buttons">
       <Link to='/register' className='btn btn-primary'>Register</Link>

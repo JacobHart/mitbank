@@ -87,7 +87,7 @@ router.put('/transaction', [ auth, [
     try {
         const user = await User.findOne({ id: req.user.id }).select('-password');
         user.transaction.unshift({'value': value}); 
-        user.balance += value; 
+        user.balance += Number(value); 
         await user.save();
         res.json(user);
     } catch (err) {
@@ -95,5 +95,31 @@ router.put('/transaction', [ auth, [
         res.status(500).send('Server Error');
     }
 });
+
+router.put('/withdraw', [ auth, [
+    check('value', 'Value is required').not().isEmpty(),
+    check('value', 'Value should be a decimal').isDecimal()
+] ], async (req, res) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const value = req.body.value * -1;
+
+    try {
+        const user = await User.findOne({ id: req.user.id }).select('-password');
+        user.transaction.unshift({'value': value}); 
+        user.balance += Number(value); 
+        await user.save();
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+
 
 module.exports = router;

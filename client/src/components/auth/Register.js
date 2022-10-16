@@ -50,7 +50,13 @@ const Register = () => {
                 const res = await axios.post('/api/users', body, config);
                 dispatch(registerSuccess(res.data));
                 dispatch(loadUser())
-
+                const id = nanoid();
+                dispatch(setAlert({
+                    id: id,
+                    msg: "Account created",
+                    alertType: 'success'
+                }))
+                setTimeout(() => dispatch( removeAlert(id)), 5000);
             } catch (err) {
             
                 const errors = err.response.data.errors;
@@ -75,16 +81,15 @@ const Register = () => {
 
         const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
         if(isAuthenticated){
-            return <Navigate to="/" />
+            return <Navigate to="/deposit" />
         }
         
     
     return (
-        <section className="container">
         <div>
             
                 <h1 className="large text-primary">Sign Up</h1>
-                <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
+                <p className="lead">Create Your Account</p>
                 <form className="form" onSubmit={ e => onSubmit(e)}>
                     
                     <div className="form-group">
@@ -130,7 +135,6 @@ const Register = () => {
                 </p>
             
         </div>
-        </section>
     )
 }
 
