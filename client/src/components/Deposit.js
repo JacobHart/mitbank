@@ -10,9 +10,7 @@ import Moment from 'react-moment'
 const Deposit = () => {
     const [value, setValue] = useState();
 
-    
     const transacions =  useSelector(state => state.auth.user.transaction)
-    console.log(transacions)
 
     const renderedTransactions = transacions.slice(0, 5).map(transaction => (
         <tr className={ transaction.value > 0 ? "text-success" : "text-danger" } key={transaction.id}>
@@ -34,7 +32,8 @@ const Deposit = () => {
             }
         }
             
-        const body = JSON.stringify({ value });
+        const body = JSON.stringify({ value, user });
+
              
         try {
                 const res = await axios.put('api/users/transaction', body, config);

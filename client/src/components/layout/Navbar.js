@@ -29,7 +29,7 @@ const Navbar = () => {
     return (
       <nav className="navbar bg-dark">
         <h1>
-          <a href="/">{ !loading && ( <>{ isAuthenticated ? `Account of ${user.name}` : "Bad Bank" }</>)}</a>
+          <a href="/">{ !loading && ( <>{ isAuthenticated ? `Account of ${user && user.name}` : "Bad Bank" }</>)}</a>
         </h1>
         { !loading && (<>{ isAuthenticated ? authLinks : guestLinks }</>)}
 

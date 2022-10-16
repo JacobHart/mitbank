@@ -6,7 +6,7 @@ const config = require('config');
 const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth');
 
-const User = require('../../models/User')
+const User = require('../../models/User');
 
 // @route   POST api/users
 // @desc    Register user
@@ -78,6 +78,7 @@ router.put('/transaction', [ auth, [
 ] ], async (req, res) => {
     const errors = validationResult(req);
 
+  
     if(!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
@@ -85,7 +86,7 @@ router.put('/transaction', [ auth, [
     const value = req.body.value;
 
     try {
-        const user = await User.findOne({ id: req.user.id }).select('-password');
+        const user = await User.findById(req.user.id ).select('-password');
         user.transaction.unshift({'value': value}); 
         user.balance += Number(value); 
         await user.save();
@@ -109,7 +110,7 @@ router.put('/withdraw', [ auth, [
     const value = req.body.value * -1;
 
     try {
-        const user = await User.findOne({ id: req.user.id }).select('-password');
+        const user = await User.findById(req.user.id ).select('-password');
         user.transaction.unshift({'value': value}); 
         user.balance += Number(value); 
         await user.save();

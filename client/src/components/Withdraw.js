@@ -11,7 +11,6 @@ const Withdraw = () => {
     const [value, setValue] = useState();
     
     const transacions =  useSelector(state => state.auth.user.transaction)
-    console.log(transacions)
 
     const renderedTransactions = transacions.slice(0, 5).map(transaction => (
         <tr className={ transaction.value > 0 ? "text-success" : "text-danger" } key={transaction.id}>
@@ -40,7 +39,6 @@ const Withdraw = () => {
         try {
                 const res = await axios.put('api/users/withdraw', body, config);
                 dispatch(loadUser())
-                console.log(res)
                 const id = nanoid();
                 dispatch(setAlert({
                     id: id,
